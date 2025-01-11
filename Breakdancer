@@ -1,0 +1,6 @@
+# X. Fan, T. E. Abbott, D. Larson, and K. Chen, “Breakdancer: Identification of genomic
+structural variation from paired-end read mapping,” Current Protocols in Bioinformatics,
+2014.
+# https://github.com/genome/breakdancer/tree/master
+perl bam2cfg.pl -g -h OF15_sorted_rmdup.bam > OF15_inv.cfg
+breakdancer-max -o chrJ OF15_inv.cfg > output_chrJ
