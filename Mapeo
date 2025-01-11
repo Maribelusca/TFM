@@ -1,3 +1,6 @@
+# https://sourceforge.net/projects/samtools/#Install_software
+# https://github.com/samtools/samtools
+# https://github.com/Kenia98/TFM/blob/main/Mapeo/hologenoma.sh
 samtools index -a is hologenoma.fa
 bwa mem -t 4 hologenoma .fa OF15_read1_paired_trim20 . fastq .gz OF15_read2_paired_trim20 . fastq .gz > OF15 . sam
 samtools view -Sb OF15.sam > OF15.bam
