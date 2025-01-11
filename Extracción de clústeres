@@ -1,0 +1,18 @@
+samtools view -h -o output_Ji.sam OF15_sorted_rmdup.bam "chrJ:6084893-6102893"
+samtools view -h -o output_Jf.sam OF15_sorted_rmdup.bam "chrJ:10798866-10810866"
+samtools sort -n -o output_Ji_sorted.bam output_Ji.sam
+samtools sort -n -o output_Jf_sorted.bam output_Jf.sam
+samtools fastq -1 output_Ji_sorted_R1.fastq -2 output_Ji_sorted_R2.fastq -s output_Ji_sorted_singles.fastq output_Ji_sorted.bam
+samtools fastq -1 output_Jf_sorted_R1.fastq -2 output_Jf_sorted_R2.fastq -s output_Jf_sorted_singles.fastq output_Jf_sorted.bam
+cat output_Jisorted_singles.fastq | grep '^@HWI' > names_singles_Ji.txt
+cat output_Jfsorted_singles.fastq | grep '^@HWI' > names_singles_Jf.txt
+zcat OF15_read1_paired_trim20.fastq.gz | grep -A3 -wFf <(sed 's /\/[12] $//' names_singles_Ji.txt ) > unmappedJi_R1.fastq
+zcat OF15_read2_paired_trim20.fastq.gz | grep -A3 -wFf <(sed 's /\/[12] $//' names_singles_Ji.txt ) > unmappedJi_R2.fastq
+zcat OF15_read1_paired_trim20.fastq.gz | grep -A3 -wFf <(sed 's /\/[12] $//' names_singles_Jf.txt ) > unmappedJf_R1.fastq
+zcat OF15_read2_paired_trim20.fastq.gz | grep -A3 -wFf <(sed 's /\/[12] $//' names_singles_Jf.txt ) > unmappedJf_R2.fastq
+cat unmappedJi_R1.fastq | sed '/^--/d' > output_unmappedJi_R1.fastq
+cat unmappedJi_R2.fastq | sed '/^--/d' > output_unmappedJi_R2.fastq
+cat unmappedJf_R1.fastq | sed '/^--/d' > output_unmappedJf_R1.fastq
+cat unmappedJf_R2.fastq | sed '/^--/d' > output_unmappedJf_R2.fastq
+cat output_Jisorted_R1.fastq output_Jfsorted_R1.fastq output_unmappedJi_R1.fastq output_unmappedJf_R1.fastq > readsJ_R1.fastq
+cat output_Jisorted_R2.fastq output_Jfsorted_R2.fastq output_unmappedJi_R2.fastq output_unmappedJf_R2.fastq > readsJ_R2.fastq
