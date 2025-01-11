@@ -1,0 +1,8 @@
+samtools index -a is hologenoma.fa
+bwa mem -t 4 hologenoma .fa OF15_read1_paired_trim20 . fastq .gz OF15_read2_paired_trim20 . fastq .gz > OF15 . sam
+samtools view -Sb OF15.sam > OF15.bam
+samtools sort -o OF15_sorted.bam OF15.bam
+samtools index OF15_sorted.bam
+samtools rmdup -S OF15_sorted.bam OF15_sorted_rmdup.bam
+samtools index OF15_sorted_rmdup.bam
+samtools flagstat OF15_sorted_rmdup.bam
