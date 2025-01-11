@@ -1,5 +1,8 @@
+# https://www.bioinformatics.babraham.ac.uk/projects/fastqc/INSTALL.txt
 fastqc -o ./resultados_fastqc -t 4 *.fastq.gz
+
 # Trimmomatic
+# https://ubuntu.pkgs.org/20.04/ubuntu-universe-amd64/trimmomatic_0.39+dfsg-1_all.deb.html
 java -jar /usr/share/java/trimmomatic-0.36.jar PE -phred33 \
 D1EFBACXX_3_6_1.fastq.gz D1EFBACXX_3_6_2.fastq.gz \
 OF15_read1_paired_trim20.fastq.gz OF15_read1_unpaired_trim20.fastq.gz \
